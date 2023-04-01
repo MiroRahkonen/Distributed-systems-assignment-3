@@ -38,6 +38,7 @@ socket.on('connect',()=>{
     console.log("/changename #Change your username");
     console.log("/users #get names of all connected users");
     console.log("/leave #leave the chatroom");
+    console.log('');
 })
 
 socket.on("connect_error", (err) => {
