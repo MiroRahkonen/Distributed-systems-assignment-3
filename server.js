@@ -50,7 +50,6 @@ io.of('/').on('connect',(socket)=>{
     socket.on('disconnect',(reason)=>{
         userlist = userlist.filter((user)=> user.socketID !== socket.id);
         console.log(`Client disconnected, reason: ${reason}`);
-        console.log(`Amount of clients: ${io.of('/').server.engine.clientsCount}`);
     })
 
     socket.on('leave',(data)=>{

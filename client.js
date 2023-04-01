@@ -118,17 +118,27 @@ rl.on('line',(input)=>{
     }
 
     else if(input.startsWith('/changename')){
+        let newUsername;
         while(true){
-            let newUsername = prompt('New username: ');
+            newUsername = prompt('Input new username (/cancel to cancel): ');
             if(!newUsername){
                 console.log("Please input a valid new username, name can't be empty");
-            } else{break}
+            }
+            else if(username === newUsername){
+                console.log(`Please provide a different username than <${username}>`)
+            }
+            else if(newUsername === '/cancel'){
+                break;
+            }
+            else{
+                socket.emit('change-username',{
+                    'sender': username,
+                    'newUsername': newUsername
+                });
+                username = newUsername;
+                break
+            }
         }
-        username = newUsername;
-        socket.emit('change-username',{
-            'sender': username,
-            'newUsername': newUsername
-        });
     }
 
     else{
