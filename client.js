@@ -1,5 +1,7 @@
-const io = require('socket.io-client');
-const prompt=require("prompt-sync")({sigint:true}); 
+import  {io} from 'socket.io-client';
+
+import promptSync from "prompt-sync";
+const prompt = promptSync({sigint:true});
 
 let args = process.argv.slice(2);
 if(args.length !== 2){
@@ -11,17 +13,6 @@ const socket = io(`http://${args[0]}:${args[1]}`);
 let username;
 
 socket.on('connect',()=>{
-    /*while(true){
-        await socket.emit('get-users');
-        console.log(userlist);
-        username = prompt('Username: ');
-        if(userlist.includes(username)){
-            console.log('Username already in use, pick another one');
-        }
-        else{
-            break;
-        }
-    }*/
     while(true){
         username = prompt('Username: ');
         if(!username){
@@ -44,7 +35,7 @@ socket.on('connect',()=>{
 socket.on("connect_error", (err) => {
     console.log(`[ERROR] Connection to server failed, reason: ${err.message}`);
     process.exit(0);
-  });
+});
 
 socket.on('join',(data)=>{
     console.log(`[NOTICE]<${data.sender}> has joined the chat!`)
@@ -86,7 +77,7 @@ socket.on('disconnect',(reason)=>{
 
 
 //Readline is used to get input from user
-const readline = require('readline');
+import readline from 'readline';
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout

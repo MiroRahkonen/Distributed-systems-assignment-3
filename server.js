@@ -1,9 +1,19 @@
-const port = 3000;
-const io = require('socket.io')(port)
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 let userlist = []
+const port = 3000;
 
-console.log('Server listening on port %d',port);
+const httpServer = createServer();
+const io = new Server(httpServer,{
+    pingInterval: 360000,
+    pingTimeout: 360000
+})
+
+httpServer.listen(port);
+//http://127.0.0.1:3000
+
+console.log(`Server listening on port: ${port}`);
 
 io.of('/').on('connect',(socket)=>{
     console.log('CLient connected');
@@ -37,12 +47,12 @@ io.of('/').on('connect',(socket)=>{
                 'message': data.message
             })
             socket.emit('message-from-server',{
-                'message': `Direct message sent to ${data.receiver}!`
+                'message': `Direct message sent to <${data.receiver}>!`
             })
         }
         else{
             socket.emit('message-from-server',{
-                'message': `[ERROR] Message couldn't be sent, no user ${data.receiver}`
+                'message': `[ERROR] Message couldn't be sent, no user <${data.receiver}>`
             })
         }
     })

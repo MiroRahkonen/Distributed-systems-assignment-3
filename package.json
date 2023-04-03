@@ -2,6 +2,7 @@
   "name": "socketio-server",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/MiroRahkonen/Distributed-systems-assignment-3#readme",
   "dependencies": {
+    "http": "^0.0.1-security",
     "prompt-sync": "^4.2.0",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1"
